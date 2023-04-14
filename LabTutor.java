@@ -5,6 +5,13 @@ public class LabTutor {
     //Class is taught in C++ but I'm more efficient in Java
 
 
+import java.util.*;
+
+public class LabTutor {
+    //collection of labs students went through which I solved to make teaching easier
+    //Class is taught in C++ but I'm more efficient in Java
+
+
 
     //Function to print a name diamond
     /*example: One
@@ -61,7 +68,7 @@ public class LabTutor {
     return votes;
 }
     //simple function to 
-    public static double RecPow(double num, Integer pow){
+    public static double RecPow(double num, Integer pow){//5
         if(pow==1){
             return num;
         } else if(pow < 0) {
@@ -77,26 +84,58 @@ public class LabTutor {
         }     
         }
 
-    public static ListNode MergeSortedList(ListNode l1, ListNode l2){
+    public static ListNode MergeSortedListRec(ListNode l1, ListNode l2){//6
         if(l1 == null){
             return l2;
         } else if(l2 == null){
             return l1;
         } if (l1.val < l2.val){
-            l1.next = MergeSortedList(l1.next, l2);
+            l1.next = MergeSortedListRec(l1.next, l2);
             return l1;
         } else {
-            l2.next = MergeSortedList(l1, l2.next);
+            l2.next = MergeSortedListRec(l1, l2.next);
             return l2;
         }
     } 
+
+    public static ListNode MergeSortedList(ListNode l1, ListNode l2){
+        if(l1 == null){
+            return l2;
+        } else if(l2 == null){
+            return l1;
+        } 
+        ListNode head = new ListNode(-1, null);
+        ListNode tail = new ListNode(-1,null);
+        tail = head;
+        while(l1!= null && l2!= null){
+            if(l1.val < l2.val){
+                tail.next = l1;
+                l1 = l1.next;
+                tail = tail.next;
+            } else {
+                tail.next = l2;
+                l2 = l2.next;
+                tail = tail.next;
+            }
+            }
+            return head.next;
+        }
+
+    private static void printLinkedList(ListNode head){
+        while(head!= null){
+            System.out.print(head.val + " ");
+            head = head.next;
+        }
+        System.out.print(" \n");
+    }
+
     public static void main(String[] args){
         System.out.print("Enter a number: ");
         boolean exit = false;
         
         while (exit == false) { 
             Scanner input = new Scanner(System.in);
-            System.out.print("Choose one of the following options: \n" + "Name Diamond (1) \n" + "Count In Range (2) \n" + "Remove All (3) \n" + "Tally Votes (4) \n" +  "Recursive Power (5) \n" + "Exit (10) \n");
+            System.out.print("Choose one of the following options: \n" + "Name Diamond (1) \n" + "Count In Range (2) \n" + "Remove All (3) \n" + "Tally Votes (4) \n" +  "Recursive Power (5) \n" + "Merge Sorted List (6) \n" + "Exit (10) \n");
             int choice = input.nextInt();
             if(choice == 1){
                 System.out.print("Enter a word: ");
@@ -141,6 +180,9 @@ public class LabTutor {
                 int pow = input.nextInt();
                 System.out.println(RecPow(num, pow));
             } else if(choice == 6){
+                ListNode l1 = new ListNode(1, new ListNode(2, new ListNode(2, new ListNode(7, new ListNode(19, null)))));
+                ListNode l2 = new ListNode(3, new ListNode(4, new ListNode(14, new ListNode(21, new ListNode(25, null)))));
+                printLinkedList(MergeSortedListRec(l1, l2));
                 continue;
             } else if(choice == 7){
                 continue;
@@ -154,26 +196,5 @@ public class LabTutor {
             }
             
         }
-        //nameDiamond("Diamond");
-
-        /*List<Integer> list = new ArrayList<Integer>();
-        for(int i = 1;i <= 10;i++){
-            list.add(i);
-        }
-        System.out.println(countInRange(list,2,7));
-        */
-
-    /*     List<String> list = new ArrayList<String>();
-    
-        System.out.println(RemoveAll(list, "a"));
-    */
-      
-    /*HashMap<String, Integer> votes = TallyVotes("AAAABBBBCCCCDDDD");
-        for(String key : votes.keySet()){
-            System.out.println(key + " " + votes.get(key));
-        }
-    */
-        
-     //   System.out.println(RecPow(2,-4));
 }
 }
